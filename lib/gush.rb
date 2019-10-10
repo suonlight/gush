@@ -16,6 +16,7 @@ require "gush/configuration"
 require "gush/errors"
 require "gush/job"
 require "gush/worker"
+require "gush/single_enqueue"
 require "gush/workflow"
 
 module Gush

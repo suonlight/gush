@@ -39,6 +39,17 @@ describe Gush::Worker do
       end
     end
 
+    context 'when job failed to enqueue outgoing jobs' do
+      before do
+        allow(RedisMutex).to receive(:with_lock).and_raise(RedisMutex::LockError)
+      end
+
+      it 'should enqueue outgoing jobs in SingleEnqueue Worker' do
+        expect(Gush::SingleEnqueue).to receive(:perform_later).with(*[workflow.id, job.name])
+        subject.perform(workflow.id, 'Prepare')
+      end
+    end
+
     it "calls job.perform method" do
       SPY = double()
       expect(SPY).to receive(:some_method)

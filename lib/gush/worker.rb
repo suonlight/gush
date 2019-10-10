@@ -75,6 +75,8 @@ module Gush
           end
         end
       end
+    rescue RedisMutex::LockError
+      SingleEnqueue.perform_later(*[workflow_id, job.name])
     end
   end
 end
