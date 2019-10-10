@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Gush::SingleEnqueue do
+describe Gush::ScheduleOutgoingJob do
   subject { described_class.new }
 
   let!(:workflow)   { TestWorkflow.create }
